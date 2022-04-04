@@ -32,7 +32,7 @@
         public function select($query = "" , $params = []) {
             try {
                 $stmt = $this->executeStatment($query, $params);
-                $result = $stmt->fetch(PDO::FETCH_ASSOC);               
+                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);               
                 
                 return $result;
             } catch(Exception $e) {

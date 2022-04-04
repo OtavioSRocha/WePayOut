@@ -22,7 +22,6 @@ class BaseController
     protected function sendOutput($data, $httpHeaders=array())
     {
         header_remove('Set-Cookie');
-        var_dump($data);exit;
         if (is_array($httpHeaders) && count($httpHeaders)) {
             foreach ($httpHeaders as $httpHeader) {
                 header($httpHeader);

@@ -8,8 +8,15 @@
             $this->conn = new Database();
         }
 
-        public function list() {
-            return $this->conn->select("SELECT * FROM tab_pagamento");
+        public function list($id=null) {
+            if($id === null) {
+                return $this->conn->select("SELECT * FROM tab_pagamento");
+            } else {
+                $param = [
+                    'id'=> $id
+                ];
+                return $this->conn->select("SELECT * FROM tab_pagamento WHERE id = :id", $param);
+            }
         }
 
         public function create($params) {
@@ -19,16 +26,14 @@
                     codigoDoBancoDoBeneficiario, 
                     numeroDaAgenciaDoBeneficiario, 
                     numeroDaContaDoBeneficiario, 
-                    valorDoPagamento, 
-                    status
+                    valorDoPagamento
                 ) VALUES (
                     :invoice, 
                     :nomeDoBeneficiario, 
                     :codigoDoBancoDoBeneficiario, 
                     :numeroDaAgenciaDoBeneficiario, 
                     :numeroDaContaDoBeneficiario, 
-                    :valorDoPagamento, 
-                    :status
+                    :valorDoPagamento
                 )", $params);
         }
     }

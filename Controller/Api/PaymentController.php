@@ -31,7 +31,8 @@
             }
         }
 
-        public function list() {
+        public function list($id = null) {
+
             $strErrorDesc = '';
             $requestMethod = $_SERVER["REQUEST_METHOD"];
 
@@ -40,7 +41,7 @@
                     
                     $payment = new Payment;
      
-                    $arrPayment = $payment->list();
+                    $arrPayment = $payment->list($id);
                     $responseData = json_encode($arrPayment);
                     
                 } catch (Error $e) {

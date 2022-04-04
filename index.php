@@ -13,8 +13,8 @@ if ((isset($uri[0]) && $uri[0] != 'payment') || !isset($uri[1])) {
 }
  
 require PROJECT_ROOT_PATH . "/Controller/Api/PaymentController.php";
- 
+
 $objFeedController = new PaymentController();
 $strMethodName = $uri[1];
-$objFeedController->{$strMethodName}();
+$objFeedController->{$strMethodName}(isset($uri[2]) ? $uri[2] : null);
 ?>
