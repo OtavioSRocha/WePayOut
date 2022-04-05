@@ -8,10 +8,12 @@
             try {
                 $queue = new Queue();
                 $item = $queue->getFI();
-
-                $bank = new PersistPayment($item[0]['id_pagamento']);
-                $bank->executePayment();
-
+                if(!empty($item)) {
+                    $bank = new PersistPayment($item[0]['id_pagamento']);
+                    $bank->executePayment();
+                } else {
+                    var_dump("Sem pagamentos na fila");
+                }
                 
             } catch(Error $e) {
                 var_dump($e);

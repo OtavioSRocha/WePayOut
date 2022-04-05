@@ -20,7 +20,9 @@
         }
 
         public function create($params) {
-            $paymentId = $this->conn->create("INSERT INTO tab_pagamento (
+            try{
+                $this->conn->beginTransaction();
+                $paymentId = $this->conn->exec("INSERT INTO tab_pagamento (
                     invoice, 
                     nomeDoBeneficiario, 
                     codigoDoBancoDoBeneficiario, 
@@ -36,11 +38,17 @@
                     :valorDoPagamento
                 )", $params);
 
-            $fila = new Queue();
-            $fila->addQueue([
-                "id_pagamento"=> $paymentId,
-                "invoice_pagamento" => $params->invoice
-            ]);
+                $fila = new Queue();
+                $fila->addQueue([
+                    "id_pagamento"=> $paymentId,
+                    "invoice_pagamento" => $params->invoice
+                ]);
+                $this->conn->commit();
+                
+            } catch(Error $e) {
+                $this->conn->rollBack();
+                throw New Exception( $e->getMessage() );
+            }
         }
 
 

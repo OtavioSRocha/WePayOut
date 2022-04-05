@@ -29,7 +29,7 @@ CREATE TABLE tab_fila_pagamento(
     id INT NOT NULL AUTO_INCREMENT,
     id_pagamento INT NOT NULL,
     invoice_pagamento VARCHAR(250) NOT NULL,
-    status VARCHAR(20) NOT NULL,
+    tentativas INT(20) NOT NULL,
     PRIMARY KEY(`id`)
 ) ENGINE = InnoDB;
 ```
@@ -63,4 +63,9 @@ Body
 	"numeroDaContaDoBeneficiario": "123456789012345",
 	"valorDoPagamento": "99.99"
 }
+```
+
+### Rota para consumir a fila
+```
+[GET | POST] /index.php/schedule/executeQueue
 ```

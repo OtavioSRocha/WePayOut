@@ -16,7 +16,6 @@
             $this->conn = null;
 
             try {
-
                 $this->conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->database_name, $this->username, $this->password);
                 $this->conn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
                 $this->conn->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_ASSOC);
@@ -42,9 +41,8 @@
             } 
         }
 
-        public function create($query = "" , $params = []) {
+        public function exec($query = "" , $params = []) {
             try {
-
                 $stmt = $this->executeStatment($query, $params);        
                 return $stmt;
 
@@ -80,5 +78,18 @@
                 throw New Exception( $e->getMessage() );
             }   
         }
+
+        public function beginTransaction() {
+            return $this->conn->beginTransaction();
+        }
+        
+        public function commit() {
+            return $this->conn->commit();
+        }
+
+        public function rollBack() {
+            return $this->conn->rollBack();
+        }
+
     }
 ?>

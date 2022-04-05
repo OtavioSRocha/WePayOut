@@ -7,11 +7,11 @@ class Queue {
     }
 
     public function addQueue($params) {
-        $this->conn->create("INSERT INTO tab_fila_pagamento (id_pagamento, invoice_pagamento) VALUES (:id_pagamento, :invoice_pagamento)", $params);
+        $this->conn->exec("INSERT INTO tab_fila_pagamento (id_pagamento, invoice_pagamento) VALUES (:id_pagamento, :invoice_pagamento)", $params);
     }
 
     public function getFI() {
-        return $this->conn->select("SELECT * FROM tab_fila_pagamento ORDER BY id DESC LIMIT 1");
+        return $this->conn->select("SELECT * FROM tab_fila_pagamento ORDER BY id ASC LIMIT 1");
     }
 
 }
