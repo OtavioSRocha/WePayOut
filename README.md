@@ -1,10 +1,18 @@
+## Introdução
+Simulador de sistema de pagamento com fila.
+
+
+Para rodar o projeto é necessário estar com o rewrite mode ativado no PHP
+PHP 8.0.17
+MariaDB 10.4.24
+
 ## Creating database
 
 ```sql
 CREATE DATABASE wepayout_database;
 ````
 ```sql
-CREATE TABLE wepayout_database.tab_pagamento(
+CREATE TABLE tab_pagamento(
     id INT NOT NULL AUTO_INCREMENT,
     invoice VARCHAR(250) NOT NULL,
     nomeDoBeneficiario VARCHAR(250) NOT NULL,
@@ -12,8 +20,16 @@ CREATE TABLE wepayout_database.tab_pagamento(
     numeroDaAgenciaDoBeneficiario VARCHAR(4) NOT NULL,
     numeroDaContaDoBeneficiario VARCHAR(15) NOT NULL,
     valorDoPagamento DOUBLE NOT NULL,
-    status VARCHAR(200) NOT NULL,
+    status VARCHAR(200) NOT NULL DEFAULT 'CRIADO',
     bancoProcessador VARCHAR(200) NULL,
+    PRIMARY KEY(`id`)
+) ENGINE = InnoDB;
+
+CREATE TABLE tab_fila_pagamento(
+    id INT NOT NULL AUTO_INCREMENT,
+    id_pagamento INT NOT NULL,
+    invoice_pagamento VARCHAR(250) NOT NULL,
+    status VARCHAR(20) NOT NULL,
     PRIMARY KEY(`id`)
 ) ENGINE = InnoDB;
 ```
@@ -25,18 +41,19 @@ As configurações da conexão ficam no arquivo `Model/Database.php`
 
 ### List all payments
 ```
-[GET] /payment/list
+[GET] /index.php/payment/list
 ```
 
 ### Receive a specific payment
 ```
-[GET] /payment/list/{id}
+[GET] /index.php/payment/list/{id}
 ```
 
 ### Create a payment
 ```
-[POST] /payment/create
+[POST] /index.php/payment/create
 ```
+Body
 ```json
 {
 	"invoice": "invoice",

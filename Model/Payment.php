@@ -20,7 +20,7 @@
         }
 
         public function create($params) {
-            $this->conn->create("INSERT INTO tab_pagamento (
+            $paymentId = $this->conn->create("INSERT INTO tab_pagamento (
                     invoice, 
                     nomeDoBeneficiario, 
                     codigoDoBancoDoBeneficiario, 
@@ -35,5 +35,13 @@
                     :numeroDaContaDoBeneficiario, 
                     :valorDoPagamento
                 )", $params);
+
+            $fila = new Queue();
+            $fila->addQueue([
+                "id_pagamento"=> $paymentId,
+                "invoice_pagamento" => $params->invoice
+            ]);
         }
+
+
     }
