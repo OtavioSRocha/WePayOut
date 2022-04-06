@@ -17,7 +17,19 @@
             }
         }
 
-        public function consultPayment() {
-            return rand(0,1);
+        public function consultPayment($invoice, $conta) {
+            if(rand(0,1)) {
+                return [
+                    "invoice" => $invoice,
+                    "conta" => $conta,
+                    "status" => "APROVADO"
+                ];
+            } else {
+                return [
+                    "invoice" => $invoice,
+                    "conta" => $conta,
+                    "status" => "REJEITADO"
+                ];
+            }
         }
     }

@@ -37,19 +37,22 @@
                     :numeroDaContaDoBeneficiario, 
                     :valorDoPagamento
                 )", $params);
-
-                $fila = new Queue();
-                $fila->addQueue([
-                    "id_pagamento"=> $paymentId,
-                    "invoice_pagamento" => $params->invoice
-                ]);
                 $this->conn->commit();
-                
+
+                $this->addQueue($paymentId, $params->invoice);
             } catch(Error $e) {
                 $this->conn->rollBack();
                 throw New Exception( $e->getMessage() );
             }
         }
 
-
+        public function addQueue($paymentId, $invoice) {
+            $fila = new Queue();
+            $fila->addQueue([
+                "id_pagamento"=> $paymentId,
+                "invoice_pagamento" => $invoice
+            ]);
+            $this->conn->exec("UPDATE tab_pagamento SET status = :status WHERE id = :id", ["status" => "PROCESSANDO", "id"=> $paymentId]);
+        }
+        
     }

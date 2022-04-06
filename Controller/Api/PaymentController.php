@@ -3,6 +3,24 @@
 
     class PaymentController extends BaseController {
 
+        public function validaDados($dados) {
+            $erros = "";
+            if($dados->valorDoPagamento > 100000 || $dados->valorDoPagamento < 0.01) {
+                $erros = $erros . " | Valor do pagamento inválido";
+            }
+            if(strlen($dados->codigoDoBancoDoBeneficiario) > 3 || strlen($dados->codigoDoBancoDoBeneficiario) < 1) {
+                $erros = $erros . " | Código do banco inválido";
+            }
+            if(strlen($dados->numeroDaAgenciaDoBeneficiario) > 4 || strlen($dados->numeroDaAgenciaDoBeneficiario) < 1) {
+                $erros = $erros . " | Agência inválida";
+            }
+            if(strlen($dados->numeroDaContaDoBeneficiario) > 15 || strlen($dados->numeroDaContaDoBeneficiario) < 1) {
+                $erros = $erros . " | Conta inválida";
+            }
+
+            return $erros;
+        }
+
         public function create() {
 
             $data =  file_get_contents('php://input');;
@@ -11,9 +29,14 @@
             $requestMethod = $_SERVER["REQUEST_METHOD"];
 
             if (strtoupper($requestMethod) == 'POST') {
-                $payment = new Payment;
-                $arrPayment = $payment->create($params);
-
+                $valida = $this->validaDados($params);
+                if(strlen($valida) == 0) {
+                    $payment = new Payment;
+                    $payment->create($params);
+                } else {
+                    $strErrorDesc = $valida; 
+                    $strErrorHeader = 'HTTP/1.1 422 Unprocessable Entity';
+                }
             } else {
                 $strErrorDesc = 'Method not supported';
                 $strErrorHeader = 'HTTP/1.1 422 Unprocessable Entity';
@@ -26,7 +49,7 @@
                 );
             } else {
                 $this->sendOutput(json_encode(array('error' => $strErrorDesc)), 
-                    array('Content-Type: application/json', $strErrorHeader)
+                    array('Content-Type: application/html', $strErrorHeader)
                 );
             }
         }

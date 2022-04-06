@@ -7,7 +7,7 @@
         public function executeQueue() {
             try {
                 $queue = new Queue();
-                $item = $queue->getFI();
+                $item = $queue->getFIUnprocessed();
                 if(!empty($item)) {
                     $bank = new PersistPayment($item[0]['id_pagamento']);
                     $bank->executePayment();
@@ -18,6 +18,22 @@
             } catch(Error $e) {
                 var_dump($e);
                 return false;
+            }
+        }
+
+        public function getPaymentApproval() {
+            try {
+                $queue = new Queue();
+                $item = $queue->getFIProcessed();
+                if(!empty($item)) {
+                    $bank = new PersistPayment($item[0]['id_pagamento']);
+                    $bank->getPaymentApproval();
+                } else {
+                    var_dump("Sem pagamentos na fila");
+                }
+                
+            } catch(Error $e) {
+
             }
         }
 
