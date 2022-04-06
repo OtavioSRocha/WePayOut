@@ -11,7 +11,7 @@ MariaDB 10.4.24
 ```sql
 CREATE DATABASE wepayout_database;
 
-CREATE TABLE tab_pagamento(
+CREATE TABLE wepayout_database.tab_pagamento(
     id INT NOT NULL AUTO_INCREMENT,
     invoice VARCHAR(250) NOT NULL,
     nomeDoBeneficiario VARCHAR(250) NOT NULL,
@@ -24,7 +24,7 @@ CREATE TABLE tab_pagamento(
     PRIMARY KEY(`id`)
 ) ENGINE = InnoDB;
 
-CREATE TABLE tab_fila_pagamento(
+CREATE TABLE wepayout_database.tab_fila_pagamento(
     id INT NOT NULL AUTO_INCREMENT,
     id_pagamento INT NOT NULL,
     invoice_pagamento VARCHAR(250) NOT NULL,
