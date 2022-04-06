@@ -3,18 +3,11 @@
     
     class Itau implements PersistPaymentStrategyInterface {
         public function registerPayment($payment) {
-            if(rand(0,1)) {
-                return [
-                    "id_pagamento" => $payment[0]['id'],
-                    "banco"=> "ITAU",
-                    "status"=> true
-                ];
-            } else {
-                return [
-                    "banco"=> null,
-                    "status"=> false
-                ];
-            }
+            return [
+                "id_pagamento" => $payment[0]['id'],
+                "banco"=> "ITAU",
+                "status"=> true
+            ];
         }
 
         public function consultPayment($invoice, $conta) {
