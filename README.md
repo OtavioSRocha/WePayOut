@@ -10,8 +10,7 @@ MariaDB 10.4.24
 
 ```sql
 CREATE DATABASE wepayout_database;
-````
-```sql
+
 CREATE TABLE tab_pagamento(
     id INT NOT NULL AUTO_INCREMENT,
     invoice VARCHAR(250) NOT NULL,
