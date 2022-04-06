@@ -8,6 +8,12 @@ PHP 8.0.17.
 
 MariaDB 10.4.24.
 
+## Composer
+Execute o composer para instalar as dependencias do projeto.
+```bash
+composer install
+```
+
 ## Creating database
 
 ```sql
