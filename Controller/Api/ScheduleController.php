@@ -12,7 +12,7 @@
                     $bank = new PersistPayment($item[0]['id_pagamento']);
                     $bank->executePayment();
                 } else {
-                    var_dump("Sem pagamentos na fila");
+                    echo "Sem pagamentos na fila";
                 }
                 
             } catch(Error $e) {
@@ -29,7 +29,7 @@
                     $bank = new PersistPayment($item[0]['id_pagamento']);
                     $bank->getPaymentApproval();
                 } else {
-                    var_dump("Sem pagamentos na fila");
+                    echo "Sem pagamentos na fila";
                 }
                 
             } catch(Error $e) {

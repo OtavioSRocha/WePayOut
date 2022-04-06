@@ -19,6 +19,10 @@
             }
         }
 
+        public function getByAccountAndInvoice($account, $invoice) {
+            return $this->conn->select("SELECT * FROM tab_pagamento WHERE invoice = :invoice AND numeroDaContaDoBeneficiario = :account", ["invoice" => $invoice, "account" => $account]);
+        }
+
         public function create($params) {
             try{
                 $this->conn->beginTransaction();
@@ -54,5 +58,5 @@
             ]);
             $this->conn->exec("UPDATE tab_pagamento SET status = :status WHERE id = :id", ["status" => "PROCESSANDO", "id"=> $paymentId]);
         }
-        
+
     }

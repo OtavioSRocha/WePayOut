@@ -4,7 +4,10 @@
     class PaymentController extends BaseController {
 
         public function validaDados($dados) {
+            $payment = new Payment;
+            $invoiceAccount = $payment->getByAccountAndInvoice($dados->numeroDaContaDoBeneficiario, $dados->invoice);
             $erros = "";
+
             if($dados->valorDoPagamento > 100000 || $dados->valorDoPagamento < 0.01) {
                 $erros = $erros . " | Valor do pagamento inválido";
             }
@@ -17,7 +20,10 @@
             if(strlen($dados->numeroDaContaDoBeneficiario) > 15 || strlen($dados->numeroDaContaDoBeneficiario) < 1) {
                 $erros = $erros . " | Conta inválida";
             }
-
+            if(count($invoiceAccount) > 0) {
+                $erros = $erros . " | Invoice deve ser único por cliente";
+            }
+            
             return $erros;
         }
 
