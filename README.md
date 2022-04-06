@@ -3,7 +3,9 @@ Simulador de sistema de pagamento com fila.
 
 
 Para rodar o projeto é necessário estar com o rewrite mode ativado no PHP
+
 PHP 8.0.17
+
 MariaDB 10.4.24
 
 ## Creating database
