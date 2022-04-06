@@ -1,0 +1,2 @@
+* * * * * curl http://localhost/wepayout/index.php/schedule/executeQueue >/dev/null 2>&1
+*/2 * * * * curl http://localhost/wepayout/index.php/schedule/getPaymentApproval >/dev/null 2>&1

@@ -74,3 +74,10 @@ Body
 ```
 [GET | POST] /index.php/schedule/getPaymentApproval
 ```
+
+# Schedule
+### Windows
+    Os arquivos para serem adicionados ao schedule do Windows estão na pasta `PowerShell`.
+
+### Linux
+    Os comandos para serem adicionados ao crontab do linux estão no arquivo `crontab.txt`.
