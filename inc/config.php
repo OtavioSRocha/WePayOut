@@ -1,5 +1,5 @@
 <?php
-define("DB_HOST", "localhost");
-define("DB_USERNAME", "wepayout");
-define("DB_PASSWORD", "12321");
-define("DB_DATABASE_NAME", "wepayout_database");
+define("DB_HOST", $_ENV['DB_HOST']);
+define("DB_USERNAME", $_ENV['DB_USERNAME']);
+define("DB_PASSWORD", $_ENV['DB_PASSWORD']);
+define("DB_DATABASE_NAME", $_ENV['DB_DATABASE_NAME']);

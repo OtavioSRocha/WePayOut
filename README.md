@@ -34,7 +34,7 @@ CREATE TABLE tab_fila_pagamento(
 ) ENGINE = InnoDB;
 ```
 
-As configurações da conexão ficam no arquivo `Model/Database.php`
+As configurações da conexão ficam no arquivo `.env` na raiz do projeto;
 
 # Routes
 

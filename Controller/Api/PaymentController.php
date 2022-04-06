@@ -11,13 +11,13 @@
             if($dados->valorDoPagamento > 100000 || $dados->valorDoPagamento < 0.01) {
                 $erros = $erros . " | Valor do pagamento inválido";
             }
-            if(strlen($dados->codigoDoBancoDoBeneficiario) > 3 || strlen($dados->codigoDoBancoDoBeneficiario) < 1) {
+            if(strlen($dados->codigoDoBancoDoBeneficiario) > 3 || strlen($dados->codigoDoBancoDoBeneficiario) < 1 || !is_numeric($dados->codigoDoBancoDoBeneficiario)) {
                 $erros = $erros . " | Código do banco inválido";
             }
-            if(strlen($dados->numeroDaAgenciaDoBeneficiario) > 4 || strlen($dados->numeroDaAgenciaDoBeneficiario) < 1) {
+            if(strlen($dados->numeroDaAgenciaDoBeneficiario) > 4 || strlen($dados->numeroDaAgenciaDoBeneficiario) < 1 || !is_numeric($dados->numeroDaAgenciaDoBeneficiario)) {
                 $erros = $erros . " | Agência inválida";
             }
-            if(strlen($dados->numeroDaContaDoBeneficiario) > 15 || strlen($dados->numeroDaContaDoBeneficiario) < 1) {
+            if(strlen($dados->numeroDaContaDoBeneficiario) > 15 || strlen($dados->numeroDaContaDoBeneficiario) < 1 || !is_numeric($dados->numeroDaContaDoBeneficiario) ) {
                 $erros = $erros . " | Conta inválida";
             }
             if(count($invoiceAccount) > 0) {
