@@ -9,6 +9,12 @@ ini_set('xdebug.var_display_max_data', -1);
 
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $uri = explode( 'index.php/', $uri );
+
+if(count($uri) == 1) {
+    header("HTTP/1.1 404 Not Found");
+    exit();
+}
+
 $uri = explode( '/', $uri[1] );
 
 if ((isset($uri[0]) && ($uri[0] != 'payment' && $uri[0] != 'schedule')) || !isset($uri[1])) {
