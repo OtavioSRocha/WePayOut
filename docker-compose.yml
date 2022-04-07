@@ -1,0 +1,45 @@
+version: "3"
+
+services:
+  wepayout-api:
+    build: ./.devcontainer
+    volumes:
+    - ./:/var/www/html
+    networks:
+    - wepayout
+    container_name: wepayout-api
+
+  wepayout-database:
+    image: bitnami/mysql
+    environment:
+    - MYSQL_ROOT_PASSWORD=wepayout_pass
+    - MYSQL_USER=dev
+    - MYSQL_PASSWORD=wepayout_pass
+    - MYSQL_DATABASE=wepayout
+    - MYSQL_ROOT_HOST=%
+    ports:
+    - "3336:3306"
+    - "33360:33060"
+    volumes:
+    - "wepayout-db:/var/lib/mysql"
+    networks:
+    - wepayout
+    container_name: wepayout-database
+
+  wepayout-nginx:
+    image: nginx:alpine
+    container_name: wepayout-nginx
+    labels:
+      traefik.frontend.rule: Host:wepayout.localhost
+    volumes:
+      - ./:/var/www/html
+      - .devcontainer/nginx:/etc/nginx/conf.d/
+    networks:
+      - wepayout
+
+volumes:
+  wepayout-db:
+
+networks:
+  wepayout:
+    external: true

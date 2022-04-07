@@ -1,10 +1,9 @@
 <?php 
     class Database {
-
-        private $host = "127.0.0.1";
-        private $database_name = "wepayout_database";
-        private $username = "wepayout";
-        private $password = "12321";
+        private $host = DB_HOST;
+        private $database_name = DB_DATABASE_NAME;
+        private $username = DB_USERNAME;
+        private $password = DB_PASSWORD;
         public $conn;
 
         public function __construct(){
