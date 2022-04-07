@@ -41,9 +41,9 @@
                     :numeroDaContaDoBeneficiario, 
                     :valorDoPagamento
                 )", $params);
-                $this->conn->commit();
 
                 $this->addQueue($paymentId, $params->invoice);
+                $this->conn->commit();
             } catch(Error $e) {
                 $this->conn->rollBack();
                 throw New Exception( $e->getMessage() );

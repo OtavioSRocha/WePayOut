@@ -36,7 +36,7 @@ CREATE TABLE wepayout_database.tab_fila_pagamento(
     id INT NOT NULL AUTO_INCREMENT,
     id_pagamento INT NOT NULL,
     invoice_pagamento VARCHAR(250) NOT NULL,
-    status VARCHAR(20) NOT NULL,
+    status VARCHAR(20) NOT NULL DEFAULT 'CRIADO',
     PRIMARY KEY(`id`)
 ) ENGINE = InnoDB;
 ```
