@@ -88,3 +88,51 @@ Body
 
 ### Linux
     Os comandos para serem adicionados ao crontab do linux estão no arquivo `crontab.txt`.
+
+
+# Rodar utilizando o Docker (docker-compose)
+O Docker e o Docker Compose já devem estar instalados na máquina
+
+## Docker Network
+Execute o comando abaixo para criar a network
+
+```bash
+docker network create wepayout
+```
+
+## Traefik
+#### Criando o container do Traefik
+Crie o arquivo docker-compose.yml em uma pasta vazia com o conteúdo abaixo:
+```yml
+version: '3'
+services:
+  reverse-proxy:
+    image: traefik:1.7.14
+    command: --api --docker
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+       - wepayout
+    restart: always
+    container_name: traefik
+networks:
+  wepayout:
+    external: true
+```
+
+Na mesma pasta onde o arquivo está execute o comando
+```bash
+docker-compose up --build -d
+```
+
+## Rodando o projeto
+
+Na raiz do projeto execute o comando
+
+```bash
+docker-compose up --build -d
+```
