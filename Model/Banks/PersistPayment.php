@@ -65,13 +65,20 @@
                         "bancoProcessador" => $paymentStatus['banco']
                     ]
                 );
+                
+                $time = new DateTime();
+                $time->add(new DateInterval('PT2M'));
+                $stamp = $time->format('Y-m-d H:i');
+
                 $this->conn->exec("
                     UPDATE tab_fila_pagamento SET 
-                        status = :status 
+                        status = :status,
+                        hora =  :hora
                     WHERE 
                     id_pagamento = :id_pagamento",
                     [
                         "status" => "PROCESSADO",
+                        "hora" => $stamp,
                         "id_pagamento" => $this->id_pagamento
                     ]);
                 $this->conn->commit();
